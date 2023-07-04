@@ -87,4 +87,19 @@ public class BaseTest {
         WebElement playBtn = driver.findElement(By.cssSelector("span.play"));
         playBtn.click();
     }
+
+    public void selectPlaylist(int x){
+        WebElement playlist = driver.findElement(By.cssSelector("section#playlists ul> li:nth-child(" + x + ")"));
+        playlist.click();
+    }
+
+    public void deletePlaylist() throws InterruptedException{
+        WebElement deleteBtn = driver.findElement(By.cssSelector("button.del"));
+        deleteBtn.click();
+        Thread.sleep(5000);
+        /*for non-empty playlist
+        WebElement okBtn = driver.findElement(By.cssSelector("button.ok"));
+        okBtn.click();
+        Thread.sleep(5000);*/
+    }
 }

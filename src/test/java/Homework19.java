@@ -16,26 +16,16 @@ public class Homework19 extends BaseTest{
 //        Click the Login button
         clickSubmit();
 
-        selectPlaylist(3);
+        int i = 3;
+        selectPlaylist(i);
+        WebElement playlist = driver.findElement(By.cssSelector("section#playlists ul> li:nth-child(" + i + ")"));
+        String x = playlist.getText();
         Thread.sleep(5000);
 
         deletePlaylist();
 
-//        Verify 'Deleted playlist "Delete Playlist."' notification
+//        Verify 'Deleted playlist notification
         WebElement notification = driver.findElement(By.cssSelector("div.success.show"));
-        Assert.assertEquals(notification.getText(), "Deleted playlist \"Delete Playlist.\"");
-    }
-    public void selectPlaylist(int x){
-        WebElement playlist = driver.findElement(By.cssSelector("section#playlists ul> li:nth-child(" + x + ")"));
-        playlist.click();
-    }
-    public void deletePlaylist() throws InterruptedException{
-        WebElement deleteBtn = driver.findElement(By.cssSelector("button.del"));
-        deleteBtn.click();
-        Thread.sleep(5000);
-        /*for non-empty playlist
-        WebElement okBtn = driver.findElement(By.cssSelector("button.ok"));
-        okBtn.click();
-        Thread.sleep(5000);*/
+        Assert.assertEquals(notification.getText(), "Deleted playlist \"" + x + ".\"");
     }
 }
