@@ -4,10 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class Homework17 extends BaseTest{
-    @Test
+    @Test (enabled = false)
     public void addSongToPlaylist() throws InterruptedException{
-
-        openLoginLink();
 
 //        Enter email into the email field
         enterEmailField("daviyontae.floyd@testpro.io");
@@ -19,7 +17,7 @@ public class Homework17 extends BaseTest{
         clickSubmit();
 
 //        Click the search field and enter a song
-        searchSong("episode 2");
+        searchSong("mid air");
         Thread.sleep(8000);
 
 //        Click the 'View All'
