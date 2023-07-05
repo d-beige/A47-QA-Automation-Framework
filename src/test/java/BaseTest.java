@@ -8,10 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 import java.util.UUID;
@@ -40,6 +37,22 @@ public class BaseTest {
     static void quitBrowser(){
 //        Quit browser
         driver.quit();
+    }
+
+    @DataProvider(name="ValidLoginData")
+    public static Object[][] validParams(){
+            return new Object[][]{
+                    {"daviyontae.floyd@testpro.io", "te$t$tudent"},
+                    {"demo@class.com", "te$t$tudent"}
+            };
+    }
+    @DataProvider(name="InvalidLoginData")
+    public static Object[][] invalidParams(){
+        return new Object[][]{
+                {"daviyontae.floyd@testpro.io", ""},
+                {"invalid.email@gamil.com", "te$t$tudent"},
+                {"", ""}
+        };
     }
     /*LOGIN HELPER FUNCTIONS*/
     public void enterEmailField(String email){
@@ -83,6 +96,7 @@ public class BaseTest {
         WebElement saveBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-submit")));
         saveBtn.click();
     }
+
     /*SONG PLAY HELPER FUNCTIONS*/
     public void clickPlayNext(){
         WebElement playNextBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[title='Play next song']")));
@@ -94,14 +108,16 @@ public class BaseTest {
         playBtn.click();
     }
 
+    /*PLAYLIST HELPER FUNCTIONS*/
     public void selectPlaylist(int x){
         WebElement playlist = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section#playlists ul> li:nth-child(" + x + ")")));
         playlist.click();
     }
 
-    public void deletePlaylist() throws InterruptedException{
+    public void deletePlaylist(){
         WebElement deleteBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.del")));
         deleteBtn.click();
+
         /*for non-empty playlist
         WebElement okBtn = driver.findElement(By.cssSelector("button.ok"));
         okBtn.click();*/
