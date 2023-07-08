@@ -4,33 +4,45 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage{
     public HomePage(WebDriver givenDriver){ super(givenDriver); }
+    @FindBy(css = "img.avatar")
+    private WebElement avatarIcon;
+    @FindBy(css = "span.name")
+    private WebElement username;
+    @FindBy(css = "li a.songs")
+    private WebElement allSongs;
+    @FindBy(css = ".pause .fa.fa-pause")
+    private WebElement pauseBtn;
+    @FindBy(css = ".play .fa.fa-play")
+    private WebElement playBtn;
+    @FindBy(css = "input[type='search']")
+    private WebElement searchField;
+    @FindBy(css = "i[title='Play next song']")
+    private WebElement nextSongBtn;
+    @FindBy(css = "i[title='Play previous song']")
+    private WebElement prevSongBtn;
+    @FindBy(css = "[name='name']")
+    private WebElement playlistInputField;
+    private WebElement playlist;
 
-    By avatarIcon = By.cssSelector("img.avatar");
-    By username = By.cssSelector("span.name");
-    By allSongs = By.cssSelector("li a.songs");
-    By pauseBtn = By.cssSelector(".pause .fa.fa-pause");
-    By playBtn = By.cssSelector(".play .fa.fa-play");
-    By searchField = By.cssSelector("input[type='search']");
-    By nextSongBtn = By.cssSelector("i[title='Play next song']");
-    By prevSongBtn = By.cssSelector("i[title='Play previous song']");
-    By playlistInputField = By.cssSelector("[name='name']");
-
-
-
-    public WebElement getAvatar(){ return findElement(avatarIcon); }
-    public WebElement getUsername(){ return findElement(username); }
-    public WebElement moveToPauseBtn(){ return moveToElement(pauseBtn); }
-    public WebElement moveToPlayBtn(){ return moveToElement(playBtn); }
-    public void clickAllSongs(){ click(allSongs); }
-    public void clickPlaylist(int x){ click(By.cssSelector("#playlists ul > li:nth-child(" + x + ")")); }
-    public void clickPrevSong(){ click(prevSongBtn);}
-    public void clickNextSong(){ click(nextSongBtn); }
-    public void searchSong(String song){ findElement(searchField).sendKeys(song);}
-    public void renamePlaylist(int x, String newPlaylistname){
-        doubleClick(By.cssSelector("#playlists ul > li:nth-child(" + x + ")"));
-        findElement(playlistInputField).sendKeys(Keys.chord(Keys.CONTROL, "A"), Keys.BACK_SPACE, newPlaylistname, Keys.ENTER);
+    public WebElement getAvatar(){ return avatarIcon; }
+    public WebElement getUsername(){ return username; }
+    public WebElement moveToPauseBtn(){ return findElement(pauseBtn); }
+    public WebElement moveToPlayBtn(){ return findElement(playBtn); }
+    public void clickAllSongs(){ allSongs.click(); }
+    public void selectPlaylist(int x){
+        playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")"));
+        click(playlist); }
+    public HomePage clickPrevSong(){ click(prevSongBtn); return this;}
+    public HomePage clickNextSong(){ click(nextSongBtn); return this;}
+    public HomePage searchSong(String song){ searchField.sendKeys(song); return this;}
+    public HomePage renamePlaylist(int x, String newPlaylistName){
+        playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")"));
+        doubleClick(playlist);
+        playlistInputField.sendKeys(Keys.chord(Keys.CONTROL, "A"), Keys.BACK_SPACE, newPlaylistName, Keys.ENTER);
+        return this;
     }
 }

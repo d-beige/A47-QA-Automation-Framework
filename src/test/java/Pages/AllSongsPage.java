@@ -2,14 +2,17 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class AllSongsPage extends BasePage {
     public AllSongsPage (WebDriver givenDriver){ super(givenDriver); }
+    private WebElement song;
+    @FindBy(css = "nav.menu li.playback")
+    private WebElement playbackBtn;
 
-    int i = 1;
-    By song = By.cssSelector("#songsWrapper tr.song-item:nth-child(" + i + ")");
-    By playbackBtn = By.cssSelector("nav.menu li.playback");
-
-    public void contextClickSong(){ contextClick(song); }
-    public void clickPlayback(){ click(playbackBtn); }
+    public AllSongsPage contextClickSong(int x){
+        song = driver.findElement(By.cssSelector("#songsWrapper tr.song-item:nth-child(" + x + ")"));
+        contextClick(song); return this;}
+    public AllSongsPage clickPlayback(){ playbackBtn.click(); return this;}
 }

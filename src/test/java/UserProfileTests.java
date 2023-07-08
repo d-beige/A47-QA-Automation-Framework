@@ -5,14 +5,14 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserProfileTests extends BaseTest{
-    @Test
-    public void changeUsernameTest(){
+    @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
+    public void changeUsernameTest(String email, String password){
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
         UserProfilePage userProfilePage = new UserProfilePage(driver);
         String name = userProfilePage.generateUsername();
 
-        loginPage.login("daviyontae.floyd@testpro.io", "te$t$tudent");
+        loginPage.login(email, password);
         homePage.getUsername().click();
         userProfilePage.enterCurrentPassword("te$t$tudent").enterNewUsername(name).clickSave();
 

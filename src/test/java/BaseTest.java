@@ -18,17 +18,17 @@ import java.time.Duration;
 import java.util.UUID;
 
 public class BaseTest {
-    public static WebDriver driver;
-    public static WebDriverWait wait;
-    public static Actions actions;
-    public static String url;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    protected Actions actions;
+    protected String url;
 
     @BeforeSuite
     static void setupClass() {WebDriverManager.chromedriver().setup();}
 
     @BeforeMethod
     @Parameters({"baseUrl"})
-    public void initializeBrowser(String baseUrl){
+    protected void initializeBrowser(String baseUrl){
 //      Added ChromeOptions argument below to fix websocket error
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
@@ -40,7 +40,7 @@ public class BaseTest {
     }
 
     @AfterMethod
-    static void quitBrowser(){
+    protected void quitBrowser(){
 //        Quit browser
         driver.quit();
     }

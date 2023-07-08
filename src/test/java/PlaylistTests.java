@@ -27,9 +27,7 @@ public class PlaylistTests extends BaseTest{
 
         loginPage.login(email, password);
         homePage.searchSong("Birthday");
-        searchResultsPage.clickViewAll();
-        searchResultsPage.selectSong(1);
-        searchResultsPage.addToNewPlaylist("Newest Playlist");
+        searchResultsPage.clickViewAll().selectSong(1).addToNewPlaylist("Newest Playlist");
         Assert.assertTrue(playlistPage.getSuccessMsg().isDisplayed());
     }
 
@@ -40,7 +38,7 @@ public class PlaylistTests extends BaseTest{
         PlaylistPage playlistPage = new PlaylistPage(driver);
 
         loginPage.login(email, password);
-        homePage.clickPlaylist(3);
+        homePage.selectPlaylist(3);
         playlistPage.deletePlaylist();
         Assert.assertTrue(homePage.getSuccessMsg().isDisplayed());
     }

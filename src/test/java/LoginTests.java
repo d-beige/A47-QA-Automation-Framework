@@ -11,12 +11,12 @@ import java.time.Duration;
 
 
 public class LoginTests extends BaseTest {
-    @Test
-    public void successfulLoginTest(){
+    @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
+    public void successfulLoginTest(String email, String password){
         LoginPage loginPage = new LoginPage(driver);
         HomePage homePage = new HomePage(driver);
 
-        loginPage.login("daviyontae.floyd@testpro.io", "te$t$tudent");
+        loginPage.login(email, password);
         Assert.assertTrue(homePage.getAvatar().isDisplayed());
     }
 

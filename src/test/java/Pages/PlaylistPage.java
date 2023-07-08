@@ -3,21 +3,27 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PlaylistPage extends BasePage {
     public PlaylistPage(WebDriver givenDriver){ super(givenDriver); }
+    @FindBy(css = "button.del")
+    private WebElement deleteBtn;
+    @FindBy(css = "button.ok")
+    private WebElement okBtn;
+    @FindBy(css = "#songsWrapper .fa.fa-random")
+    private WebElement shuffleAllBtn;
 
-    By deleteBtn = By.cssSelector("button.del");
-    By okBtn = By.cssSelector("button.ok");
-    By shuffleAllBtn = By.cssSelector("#songsWrapper .fa.fa-random");
-    public void deletePlaylist(){
-        findElement(deleteBtn).click();
+    public PlaylistPage deletePlaylist(){
+        deleteBtn.click();
         if (findElement(okBtn) != null){
-            click(okBtn);
+            okBtn.click();
         }
+        return this;
     }
-    public void clickShuffleAll(){
-        findElement(shuffleAllBtn).click();
+    public PlaylistPage clickShuffleAll(){
+        shuffleAllBtn.click();
+        return this;
     }
 }

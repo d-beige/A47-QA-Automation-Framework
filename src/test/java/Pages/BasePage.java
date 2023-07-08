@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,8 +13,8 @@ import java.time.Duration;
 
 public class BasePage {
     WebDriver driver;
-    WebDriverWait wait = null;
-    Actions actions = null;
+    private WebDriverWait wait = null;
+    private Actions actions = null;
 
     public BasePage (WebDriver givenDriver){
         driver = givenDriver;
@@ -21,28 +22,17 @@ public class BasePage {
         actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
-    By overlayLocator = By.cssSelector(".overlay.loading");
-    By successMsg = By.cssSelector("div.success.show");
+    @FindBy(css = ".overlay.loading")
+    private WebElement overlayLocator;
+    @FindBy(css = "div.success.show")
+    private WebElement successMsg;
 
-    public void waitForOverlay(){ wait.until(ExpectedConditions.invisibilityOfElementLocated(overlayLocator)); }
-    public WebElement getSuccessMsg(){ return findElement(successMsg); }
-    public void click(By locator){ wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+    public BasePage waitForOverlay(){ wait.until(ExpectedConditions.invisibilityOf(overlayLocator)); return this;}
+    protected void click(WebElement e){ wait.until(ExpectedConditions.elementToBeClickable(e)).click();
     }
-    public void doubleClick(By locator){
-        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        actions.doubleClick(e).perform();
-    }
-    public void contextClick(By locator){
-        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        actions.contextClick(e).perform();
-    }
-    public WebElement findElement(By locator){
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public WebElement moveToElement(By locator){
-        WebElement e = driver.findElement(locator);
-        actions.moveToElement(e).perform();
-        return e;
-    }
+    protected void doubleClick(WebElement e){ actions.doubleClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); }
+    protected void contextClick(WebElement e){ actions.contextClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); }
+    public WebElement getSuccessMsg(){ return successMsg; }
+    public WebElement findElement(WebElement e){ wait.until(ExpectedConditions.visibilityOf(e)); actions.moveToElement(e).perform();
+        return e;}
 }
