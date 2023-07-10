@@ -1,8 +1,7 @@
-import Pages.HomePage;
-import Pages.LoginPage;
-import Pages.PlaylistPage;
-import Pages.SearchResultsPage;
-import org.openqa.selenium.By;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.PlaylistPage;
+import pages.SearchResultsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

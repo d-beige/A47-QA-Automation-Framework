@@ -1,6 +1,5 @@
-package Pages;
+package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,7 +17,7 @@ public class BasePage {
 
     public BasePage (WebDriver givenDriver){
         driver = givenDriver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(6));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
@@ -32,7 +31,7 @@ public class BasePage {
     }
     protected void doubleClick(WebElement e){ actions.doubleClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); }
     protected void contextClick(WebElement e){ actions.contextClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); }
-    public WebElement getSuccessMsg(){ return successMsg; }
-    public WebElement findElement(WebElement e){ wait.until(ExpectedConditions.visibilityOf(e)); actions.moveToElement(e).perform();
+    public WebElement getSuccessMsg(){ return findElement(successMsg); }
+    public WebElement findElement(WebElement e){ actions.moveToElement(e).perform(); wait.until(ExpectedConditions.visibilityOf(e));
         return e;}
 }

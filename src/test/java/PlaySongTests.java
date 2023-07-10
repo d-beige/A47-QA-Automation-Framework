@@ -1,6 +1,6 @@
-import Pages.AllSongsPage;
-import Pages.HomePage;
-import Pages.LoginPage;
+import pages.AllSongsPage;
+import pages.HomePage;
+import pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,5 +16,6 @@ public class PlaySongTests extends BaseTest{
         allSongsPage.contextClickSong(1).clickPlayback();
 
         Assert.assertTrue(homePage.moveToPauseBtn().isDisplayed());
+
     }
 }

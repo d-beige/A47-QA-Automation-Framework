@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -10,13 +10,13 @@ public class HomePage extends BasePage{
     public HomePage(WebDriver givenDriver){ super(givenDriver); }
     @FindBy(css = "img.avatar")
     private WebElement avatarIcon;
-    @FindBy(css = "span.name")
+    @FindBy(css = ".view-profile")
     private WebElement username;
     @FindBy(css = "li a.songs")
     private WebElement allSongs;
-    @FindBy(css = ".pause .fa.fa-pause")
+    @FindBy(css = "span.pause")
     private WebElement pauseBtn;
-    @FindBy(css = ".play .fa.fa-play")
+    @FindBy(css = "span.play")
     private WebElement playBtn;
     @FindBy(css = "input[type='search']")
     private WebElement searchField;
@@ -28,11 +28,12 @@ public class HomePage extends BasePage{
     private WebElement playlistInputField;
     private WebElement playlist;
 
-    public WebElement getAvatar(){ return avatarIcon; }
-    public WebElement getUsername(){ return username; }
+    public WebElement getAvatar(){ return findElement(avatarIcon); }
+    public WebElement getUsername(){ return findElement(username); }
     public WebElement moveToPauseBtn(){ return findElement(pauseBtn); }
     public WebElement moveToPlayBtn(){ return findElement(playBtn); }
-    public void clickAllSongs(){ allSongs.click(); }
+    public void clickAllSongs(){ click(allSongs); }
+    public void clickUsername(){ click(username); }
     public void selectPlaylist(int x){
         playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")"));
         click(playlist); }

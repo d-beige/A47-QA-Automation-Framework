@@ -1,6 +1,6 @@
-import Pages.HomePage;
-import Pages.LoginPage;
-import Pages.UserProfilePage;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.UserProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,7 +13,7 @@ public class UserProfileTests extends BaseTest{
         String name = userProfilePage.generateUsername();
 
         loginPage.login(email, password);
-        homePage.getUsername().click();
+        homePage.clickUsername();
         userProfilePage.enterCurrentPassword("te$t$tudent").enterNewUsername(name).clickSave();
 
         Assert.assertEquals(homePage.getUsername().getText(), name);
