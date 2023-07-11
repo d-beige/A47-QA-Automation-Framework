@@ -16,6 +16,7 @@ public class PlaySongTests extends BaseTest{
         allSongsPage.contextClickSong(1).clickPlayback();
 
         Assert.assertTrue(homePage.moveToPauseBtn().isDisplayed());
+        //no changes
 
     }
 }
