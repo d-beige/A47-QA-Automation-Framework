@@ -8,9 +8,9 @@ import org.testng.annotations.Test;
 public class PlaylistTests extends BaseTest{
     @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
     public void changePlaylistNameTest(String email, String password){
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
 
         loginPage.login(email, password);
         homePage.renamePlaylist(3, "New Playlist");
@@ -19,10 +19,10 @@ public class PlaylistTests extends BaseTest{
 
     @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
     public void addSongNewPlaylistTest(String email, String password){
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-        SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
+        SearchResultsPage searchResultsPage = new SearchResultsPage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
 
         loginPage.login(email, password);
         homePage.searchSong("Birthday");
@@ -32,9 +32,9 @@ public class PlaylistTests extends BaseTest{
 
     @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
     public void deletePlaylistTest(String email, String password){
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-        PlaylistPage playlistPage = new PlaylistPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
+        PlaylistPage playlistPage = new PlaylistPage(getDriver());
 
         loginPage.login(email, password);
         homePage.selectPlaylist(3);

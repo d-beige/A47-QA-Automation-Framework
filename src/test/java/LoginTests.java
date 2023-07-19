@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 public class LoginTests extends BaseTest {
     @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
     public void successfulLoginTest(String email, String password){
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
 
         loginPage.login(email, password);
         Assert.assertTrue(homePage.getAvatar().isDisplayed());
@@ -16,9 +16,9 @@ public class LoginTests extends BaseTest {
 
     @Test (dataProvider = "InvalidLoginData", dataProviderClass = BaseTest.class)
     public void invalidLoginTest(String email, String password){
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
 
         loginPage.login(email, password);
-        Assert.assertEquals(driver.getCurrentUrl(), url);
+        Assert.assertEquals(getDriver().getCurrentUrl(), url);
     }
 }

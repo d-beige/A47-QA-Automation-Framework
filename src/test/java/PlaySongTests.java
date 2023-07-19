@@ -7,9 +7,9 @@ import org.testng.annotations.Test;
 public class PlaySongTests extends BaseTest{
     @Test (dataProvider = "ValidLoginData", dataProviderClass = BaseTest.class)
     public void playFromAllSongsTest(String email, String password){
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-        AllSongsPage allSongsPage = new AllSongsPage(driver);
+        LoginPage loginPage = new LoginPage(getDriver());
+        HomePage homePage = new HomePage(getDriver());
+        AllSongsPage allSongsPage = new AllSongsPage(getDriver());
 
         loginPage.login(email, password);
         homePage.clickAllSongs();
