@@ -2,10 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Smoke" parallel="methods" thread-count="2">
-    <parameter name="baseUrl" value="https://qa.koel.app/"></parameter>
+    <parameter name="baseUrl" value="https://qa.koel.app/"/>
     <test name="Smoke Test" preserve-order="false">
         <classes>
-            <class name="LoginTests" />
+            <class name="PlaylistTests" />
+            <class name="UserProfileTests" />
         </classes>
     </test>
 </suite>

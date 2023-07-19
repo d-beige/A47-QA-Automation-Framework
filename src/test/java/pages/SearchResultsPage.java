@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static java.sql.DriverManager.getDriver;
+
 public class SearchResultsPage extends BasePage{
     public SearchResultsPage(WebDriver givenDriver){ super(givenDriver); }
     @FindBy(css = "section.songs button[data-test='view-all-songs-btn']")

@@ -27,8 +27,7 @@ public class BasePage {
     private WebElement successMsg;
 
     public BasePage waitForOverlay(){ wait.until(ExpectedConditions.invisibilityOf(overlayLocator)); return this;}
-    protected void click(WebElement e){ wait.until(ExpectedConditions.elementToBeClickable(e)).click();
-    }
+    protected void click(WebElement e){ actions.click(wait.until(ExpectedConditions.elementToBeClickable(e))).perform();}
     protected void doubleClick(WebElement e){ actions.doubleClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); }
     protected void contextClick(WebElement e){ actions.contextClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); }
     public WebElement getSuccessMsg(){ return findElement(successMsg); }

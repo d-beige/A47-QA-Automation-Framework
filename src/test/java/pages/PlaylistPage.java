@@ -14,14 +14,14 @@ public class PlaylistPage extends BasePage {
     private WebElement shuffleAllBtn;
 
     public PlaylistPage deletePlaylist(){
-        deleteBtn.click();
-        if (findElement(okBtn) != null){
-            okBtn.click();
+        click(deleteBtn);
+        if (findElement(okBtn).isDisplayed() == true ){
+            click(okBtn);
         }
         return this;
     }
     public PlaylistPage clickShuffleAll(){
-        shuffleAllBtn.click();
+        click(shuffleAllBtn);
         return this;
     }
 }

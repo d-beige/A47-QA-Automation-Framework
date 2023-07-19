@@ -43,7 +43,8 @@ public class HomePage extends BasePage{
     public HomePage renamePlaylist(int x, String newPlaylistName){
         playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")"));
         doubleClick(playlist);
-        playlistInputField.sendKeys(Keys.chord(Keys.CONTROL, "A"), Keys.BACK_SPACE, newPlaylistName, Keys.ENTER);
+        playlistInputField.sendKeys(Keys.chord(Keys.CONTROL, "A"), Keys.BACK_SPACE);
+        playlistInputField.sendKeys(newPlaylistName, Keys.ENTER);
         return this;
     }
 }
