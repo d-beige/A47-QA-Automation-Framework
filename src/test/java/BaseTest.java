@@ -31,37 +31,30 @@ public class BaseTest {
         String gridURL = "http://192.168.1.254:4444/";
 
         switch (browser) {
-            case "firefox" -> {
+            case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 return driver = new FirefoxDriver();
-            }
-            case "edge" -> {
+            case "edge":
                 WebDriverManager.edgedriver().setup();
                 EdgeOptions eOptions = new EdgeOptions();
                 eOptions.addArguments("--remote-allow-origins=*");
                 return driver = new EdgeDriver(eOptions);
-            }
-            case "grid-firefox" -> {
+            case "grid-firefox":
                 caps.setCapability("browserName", "firefox");
                 return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
-            }
-            case "grid-edge" -> {
+            case "grid-edge":
                 caps.setCapability("browserName", "MicrosoftEdge");
                 return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
-            }
-            case "grid-chrome" -> {
+            case "grid-chrome":
                 caps.setCapability("browserName", "chrome");
                 return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), caps);
-            }
-            case "cloud" -> {
+            case "cloud":
                 return lambdaTest();
-            }
-            default -> {
+            default:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions cOptions = new ChromeOptions();
                 cOptions.addArguments("--remote-allow-origins=*");
                 return driver = new ChromeDriver(cOptions);
-            }
         }
     }
 
