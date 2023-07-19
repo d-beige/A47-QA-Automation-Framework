@@ -1,9 +1,7 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import static java.sql.DriverManager.getDriver;
@@ -19,7 +17,12 @@ public class SearchResultsPage extends BasePage{
     private WebElement song;
     private WebElement list;
 
-    public SearchResultsPage clickViewAll(){ viewAllBtn.click(); return this;}
+    public SearchResultsPage clickViewAll(){
+        Point p= viewAllBtn.getLocation();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(viewAllBtn).moveByOffset(p.x, p.y).click().perform();
+        return this;
+    }
     public SearchResultsPage selectSong(int x){
         song = driver.findElement(By.cssSelector("#songResultsWrapper tr.song-item:nth-child(" + x + ")"));
         click(song); return this;}

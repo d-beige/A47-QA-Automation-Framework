@@ -25,8 +25,8 @@ public class PlaylistTests extends BaseTest{
         PlaylistPage playlistPage = new PlaylistPage(getDriver());
 
         loginPage.login(email, password);
-        homePage.searchSong("Birthday");
-        searchResultsPage.clickViewAll().selectSong(1).addToNewPlaylist("Newest Playlist");
+        homePage.searchSong("dark");
+        searchResultsPage.clickViewAll().selectSong(1).addToNewPlaylist("Another Playlist");
         Assert.assertTrue(playlistPage.getSuccessMsg().isDisplayed());
     }
 

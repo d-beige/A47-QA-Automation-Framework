@@ -1,9 +1,7 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage{
@@ -36,7 +34,10 @@ public class HomePage extends BasePage{
     public void clickUsername(){ click(username); }
     public void selectPlaylist(int x){
         playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")"));
-        click(playlist); }
+        Point p= playlist.getLocation();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(playlist).moveByOffset(p.x, p.y).click().perform();
+        }
     public HomePage clickPrevSong(){ click(prevSongBtn); return this;}
     public HomePage clickNextSong(){ click(nextSongBtn); return this;}
     public HomePage searchSong(String song){ searchField.sendKeys(song); return this;}

@@ -33,4 +33,5 @@ public class BasePage {
     public WebElement getSuccessMsg(){ return findElement(successMsg); }
     public WebElement findElement(WebElement e){ actions.moveToElement(e).perform(); wait.until(ExpectedConditions.visibilityOf(e));
         return e;}
+    public WebElement moveToElement(WebElement e){wait.until(ExpectedConditions.visibilityOf(e)); actions.moveToElement(e).perform(); return e;}
 }

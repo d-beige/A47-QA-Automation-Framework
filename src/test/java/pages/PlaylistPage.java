@@ -14,6 +14,7 @@ public class PlaylistPage extends BasePage {
     private WebElement shuffleAllBtn;
 
     public PlaylistPage deletePlaylist(){
+        findElement(deleteBtn);
         click(deleteBtn);
         if (findElement(okBtn).isDisplayed() == true ){
             click(okBtn);
