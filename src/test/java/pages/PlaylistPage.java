@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,8 +15,8 @@ public class PlaylistPage extends BasePage {
     private WebElement shuffleAllBtn;
 
     public PlaylistPage deletePlaylist(){
-        findElement(deleteBtn);
-        click(deleteBtn);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();", deleteBtn);
         if (findElement(okBtn).isDisplayed() == true ){
             click(okBtn);
         }

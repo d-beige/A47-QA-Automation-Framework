@@ -18,9 +18,8 @@ public class SearchResultsPage extends BasePage{
     private WebElement list;
 
     public SearchResultsPage clickViewAll(){
-        Point p= viewAllBtn.getLocation();
-        Actions actions = new Actions(driver);
-        actions.moveToElement(viewAllBtn).moveByOffset(p.x, p.y).click().perform();
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();", viewAllBtn);
         return this;
     }
     public SearchResultsPage selectSong(int x){
