@@ -1,3 +1,5 @@
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -80,6 +82,7 @@ public class BaseTest {
         return threadDriver.get();
     }
 
+
     public void navigateToPage(){
         threadDriver.get().get(url);
     }
@@ -93,7 +96,6 @@ public class BaseTest {
         url = baseUrl;
         wait = new WebDriverWait(getDriver(), Duration.ofSeconds(6));
         actions = new Actions(getDriver());
-        navigateToPage();
     }
 
 
@@ -118,5 +120,9 @@ public class BaseTest {
                 {"invalid.email@gamil.com", "te$t$tudent"},
                 {"", ""}
         };
+    }
+
+
+    public void iEnterEmail(String arg0) {
     }
 }
