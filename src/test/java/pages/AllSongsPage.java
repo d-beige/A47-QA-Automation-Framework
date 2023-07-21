@@ -14,5 +14,5 @@ public class AllSongsPage extends BasePage {
     public AllSongsPage contextClickSong(int x){
         song = driver.findElement(By.cssSelector("#songsWrapper tr.song-item:nth-child(" + x + ")"));
         contextClick(song); return this;}
-    public AllSongsPage clickPlayback(){ playbackBtn.click(); return this;}
+    public AllSongsPage clickPlayback(){ click(playbackBtn); return this;}
 }

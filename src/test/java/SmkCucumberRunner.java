@@ -5,8 +5,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 
-@CucumberOptions( features = {"src/test/resources/features/Login.feature"})
-public class CucumberRunner extends AbstractTestNGCucumberTests {
+@CucumberOptions( features = {"src/test/resources/features/Outline.feature"},
+publish = true)
+
+public class SmkCucumberRunner extends AbstractTestNGCucumberTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;
 
@@ -16,9 +18,7 @@ public class CucumberRunner extends AbstractTestNGCucumberTests {
     }
 
     @DataProvider
-    public Object[][] features(){
-        return testNGCucumberRunner.provideScenarios();
-    }
+    public Object[][] features(){ return testNGCucumberRunner.provideScenarios(); }
 
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {

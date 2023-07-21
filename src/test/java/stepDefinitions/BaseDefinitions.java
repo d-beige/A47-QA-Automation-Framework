@@ -1,18 +1,27 @@
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
+package stepDefinitions;
+
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -20,18 +29,24 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 
-public class BaseTest {
-    protected WebDriver driver;
-    protected WebDriverWait wait;
-    protected Actions actions;
-    String url;
+public class BaseDefinitions {
+    private static final ThreadLocal<WebDriver> THREAD_LOCAL = new ThreadLocal<>();
+    static WebDriver driver = null;
+    static WebDriverWait wait;
+    static Actions actions;
 
-    private static final ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
-
+    public static WebDriver getThreadLocal() {
+        return THREAD_LOCAL.get();
+    }
+    @Before
+    public void initializeBrowser() throws MalformedURLException {
+        THREAD_LOCAL.set(pickBrowser(System.getProperty("browser")));
+        THREAD_LOCAL.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        THREAD_LOCAL.get().manage().window().maximize();
+    }
     public WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
         String gridURL = "http://192.168.1.254:4444/";
-
         switch (browser) {
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
@@ -59,54 +74,31 @@ public class BaseTest {
                 return driver = new ChromeDriver(cOptions);
         }
     }
-
     public static WebDriver lambdaTest() throws MalformedURLException {
         String hubURL = "https://hub.lambdatest.com/wd/hub";
 
-        EdgeOptions browserOptions = new EdgeOptions();
+        ChromeOptions browserOptions = new ChromeOptions();
         browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("111.0");
+        browserOptions.setBrowserVersion("114.0");
         HashMap<String, Object> ltOptions = new HashMap<String, Object>();
         ltOptions.put("username", "daviyontae.floyd");
         ltOptions.put("accessKey", "pkhma9IsnRQiTj7iyCg61dxihV4lMnhjvogRSf02ghI04rd8NL");
         ltOptions.put("video", true);
-        ltOptions.put("build", "Edge");
+        ltOptions.put("build", "Chrome");
         ltOptions.put("project", "Untitled");
+        ltOptions.put("name", "Delete/ Add Playlist");
+        ltOptions.put("selenium_version", "4.0.0");
         ltOptions.put("w3c", true);
         browserOptions.setCapability("LT:Options", ltOptions);
 
         return new RemoteWebDriver(new URL(hubURL), browserOptions);
     }
-
-    public WebDriver getDriver(){
-        return threadDriver.get();
-    }
-
-
-    public void navigateToPage(){
-        threadDriver.get().get(url);
-    }
-
-    @BeforeMethod
-    @Parameters({"baseUrl"})
-    protected void initializeBrowser(String baseUrl) throws MalformedURLException {
-        threadDriver.set(pickBrowser(System.getProperty("browser")));
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        getDriver().manage().window().maximize();
-        url = baseUrl;
-        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(6));
-        actions = new Actions(getDriver());
-    }
-
-
-    @AfterMethod
-    protected void quitBrowser(){
+    @After
+    public void quitBrowser(){
 //        Quit browser
-        getDriver().quit();
-        threadDriver.get().quit();
-        threadDriver.remove();
+        THREAD_LOCAL.get().close();
+        THREAD_LOCAL.remove();
     }
-
     @DataProvider(name="ValidLoginData")
     public static Object[][] validParams(){
         return new Object[][]{
@@ -116,13 +108,9 @@ public class BaseTest {
     @DataProvider(name="InvalidLoginData")
     public static Object[][] invalidParams(){
         return new Object[][]{
-                {"daviyontae.floyd@testpro.io", ""},
+                {"daviyontae.floyd@testpro.io", "wrongPassword"},
                 {"invalid.email@gamil.com", "te$t$tudent"},
                 {"", ""}
         };
-    }
-
-
-    public void iEnterEmail(String arg0) {
     }
 }

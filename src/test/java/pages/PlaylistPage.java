@@ -1,8 +1,11 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class PlaylistPage extends BasePage {
     public PlaylistPage(WebDriver givenDriver){ super(givenDriver); }
@@ -13,16 +16,6 @@ public class PlaylistPage extends BasePage {
     @FindBy(css = "#songsWrapper .fa.fa-random")
     private WebElement shuffleAllBtn;
 
-    public PlaylistPage deletePlaylist(){
-        findElement(deleteBtn);
-        click(deleteBtn);
-        if (findElement(okBtn).isDisplayed() == true ){
-            click(okBtn);
-        }
-        return this;
-    }
-    public PlaylistPage clickShuffleAll(){
-        click(shuffleAllBtn);
-        return this;
-    }
+    public PlaylistPage clickShuffleAll(){ click(shuffleAllBtn); return this; }
+    public PlaylistPage clickDeletePlaylist(){ click(deleteBtn); clickOkBtn(); return this; }
 }
