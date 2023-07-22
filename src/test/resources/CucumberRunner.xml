@@ -13,7 +13,7 @@
 
         <classes>
             <!-- The classes section defines the test classes to be included in the test -->
-            <class name="SmkCucumberRunner"/>
+            <class name="ReggCucumberRunner"/>
             <!-- It includes a single class named "CucumberRunner" -->
         </classes>
     </test>

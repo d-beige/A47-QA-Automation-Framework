@@ -9,7 +9,7 @@ import pages.LoginPage;
 
 public class LoginStepDefinitions{
     @Given("I am on the Login Page")
-    public void navigateToPage(){ BaseDefinitions.getThreadLocal().get("https://qa.koel.app/"); }
+    public void openLoginPage(){ BaseDefinitions.getThreadLocal().get("https://qa.koel.app/"); }
     @When("I enter email {string}")
     public void enterEmail(String email){
         LoginPage loginPage = new LoginPage(BaseDefinitions.getThreadLocal());
@@ -38,6 +38,7 @@ public class LoginStepDefinitions{
     @Given("I am logged in and my user avatar is displayed")
     public void logIn(){
         LoginPage loginPage = new LoginPage(BaseDefinitions.getThreadLocal());
+        BaseDefinitions.getThreadLocal().get("https://qa.koel.app/");
         loginPage.login("daviyontae.floyd@testpro.io", "te$t$tudent");
     }
 }

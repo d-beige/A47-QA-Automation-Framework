@@ -15,7 +15,7 @@ public class SearchResultsPage extends BasePage{
     private WebElement addToBtn;
     @FindBy(css = "#songResultsWrapper input")
     private WebElement newPlaylistField;
-    @FindBy(xpath = "//tr[@class='song-item selected']/td[2]")
+    @FindBy(xpath = "//tr[@class='song-item playing selected']/td[2]")
     private WebElement songTitle;
     @FindBy(css = "#progressPane h3")
     private WebElement songPlaying;
