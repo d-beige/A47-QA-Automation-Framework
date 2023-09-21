@@ -26,6 +26,7 @@ public class BasePage {
         PageFactory.initElements(driver, this);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 5), this);
     }
+
     @FindBy(css = ".overlay.loading")
     private WebElement overlayLocator;
     @FindBy(css = "div.success.show")

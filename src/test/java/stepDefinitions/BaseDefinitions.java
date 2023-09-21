@@ -41,7 +41,7 @@ public class BaseDefinitions {
     @Before
     public void initializeBrowser() throws MalformedURLException {
         THREAD_LOCAL.set(pickBrowser(System.getProperty("browser")));
-        getThreadLocal().manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        getThreadLocal().manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
         getThreadLocal().manage().window().maximize();
     }
     public WebDriver pickBrowser(String browser) throws MalformedURLException {
@@ -79,16 +79,16 @@ public class BaseDefinitions {
     public static WebDriver lambdaTest() throws MalformedURLException {
         String hubURL = "https://hub.lambdatest.com/wd/hub";
 
-        ChromeOptions browserOptions = new ChromeOptions();
+        EdgeOptions browserOptions = new EdgeOptions();
         browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("114.0");
+        browserOptions.setBrowserVersion("112.0");
         HashMap<String, Object> ltOptions = new HashMap<String, Object>();
         ltOptions.put("username", "daviyontae.floyd");
         ltOptions.put("accessKey", "pkhma9IsnRQiTj7iyCg61dxihV4lMnhjvogRSf02ghI04rd8NL");
+        ltOptions.put("visual", true);
         ltOptions.put("video", true);
-        ltOptions.put("build", "ReggressionTest");
+        ltOptions.put("build", "ReggTesting");
         ltOptions.put("project", "Untitled");
-        ltOptions.put("selenium_version", "4.0.0");
         ltOptions.put("w3c", true);
         browserOptions.setCapability("LT:Options", ltOptions);
 
