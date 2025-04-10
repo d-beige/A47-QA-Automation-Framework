@@ -20,11 +20,11 @@ public class Homework16 extends BaseTest {
 
 //      Open the url in Chrome
         String url = "https://qa.koel.app/";
-        String url2 = "https://qa.koel.app/registration.php";
+        String url2 = "https://qa.koel.app/registration";
         driver.get(url);
 
 //        Click the Registration link
-        WebElement registrationLink = driver.findElement(By.cssSelector("#hel"));
+        WebElement registrationLink = driver.findElement(By.cssSelector("a[href='registration']"));
         registrationLink.click();
 
 //        Verify user redirected to Registration page
