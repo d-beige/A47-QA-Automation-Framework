@@ -9,12 +9,11 @@
     <test name="CucumberRunner Test" preserve-order="true">
         <!-- The test represents a TestNG test within the suite -->
         <!-- It has the name "CucumberRunner Test" -->
-        <!-- The preserve-order attribute is set to "false" to allow non-sequential test execution -->
+        <!-- The preserve-order attribute is set to "true" to force sequential test execution -->
 
         <classes>
             <!-- The classes section defines the test classes to be included in the test -->
             <class name="ReggCucumberRunner"/>
-            <!-- It includes a single class named "CucumberRunner" -->
         </classes>
     </test>
 </suite>

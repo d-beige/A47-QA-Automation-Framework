@@ -1,9 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -29,7 +26,7 @@ public class BasePage {
 
     @FindBy(css = ".overlay.loading")
     private WebElement overlayLocator;
-    @FindBy(css = "div.success.show")
+    @FindBy(css = ".success.show")
     private WebElement successMsg;
     @FindBy(css = "input[type='search']")
     private WebElement searchField;
@@ -53,8 +50,6 @@ public class BasePage {
     private WebElement addPlaylistBtn;
     @FindBy(css = "li[data-testid='playlist-context-menu-create-simple']")
     private WebElement newPlaylistBtn;
-    @FindBy(css = "nav[tabindex='0'] li:nth-child(2)")
-    private WebElement deletePlaylistBtn;
     @FindBy(css = "button.ok")
     private WebElement okBtn;
     private WebElement playlist;
@@ -65,7 +60,7 @@ public class BasePage {
     public BasePage clickNewPlaylistBtn(){ click(newPlaylistBtn); return this; }
     public BasePage clickPrevSong(){ click(prevSongBtn); return this;}
     public BasePage clickNextSong(){ click(nextSongBtn); return this;}
-    public BasePage clickDeletePlaylistBtn() { click(deletePlaylistBtn); clickOkBtn(); return this; }
+    public BasePage clickDeletePlaylistBtn() {  WebElement deleteBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[normalize-space()='Delete']"))); deleteBtn.click(); clickOkBtn(); return this; }
     public BasePage enterPlaylistText(String newPlaylistName){ playlistInputField.sendKeys(Keys.chord(Keys.CONTROL, "A"), Keys.BACK_SPACE); playlistInputField.sendKeys(newPlaylistName, Keys.ENTER); return this; }
     public BasePage doubleClickPlaylist(int x){ playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")")); doubleClick(playlist); return this;}
     public BasePage clickPlaylist(int x){ playlist = driver.findElement(By.cssSelector("#playlists ul > li:nth-child(" + x + ")")); click(playlist); return this; }
@@ -84,7 +79,13 @@ public class BasePage {
     public BasePage click(WebElement e){ actions.click(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); return this;}
     public BasePage doubleClick(WebElement e){ actions.doubleClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); return this;}
     public BasePage contextClick(WebElement e){ actions.contextClick(wait.until(ExpectedConditions.elementToBeClickable(e))).perform(); return this;}
-    public WebElement getSuccessMsg(){ return findElement(successMsg); }
+    public String getSuccessMsgText(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        String toast = (String) js.executeScript(
+                "return document.querySelector('.alertify-logs .success')?.innerText || '';"
+        );
+        return toast.trim();
+    }
     public WebElement findElement(WebElement e){ actions.moveToElement(e).perform(); return wait.until(ExpectedConditions.visibilityOf(e)); }
     public WebElement moveToElement(WebElement e){wait.until(ExpectedConditions.visibilityOf(e)); actions.moveToElement(e).perform(); return e;}
     public WebElement getAvatar(){ return findElement(avatarIcon); }

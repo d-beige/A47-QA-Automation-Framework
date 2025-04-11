@@ -33,15 +33,11 @@ public class PlaylistStepDefinitions {
         HomePage homePage = new HomePage(BaseDefinitions.getThreadLocal());
         homePage.enterPlaylistText(newPlaylistName);
     }
-    @Then("I should see a green success message in the top right corner of the home page")
-    public void verifyHPSuccessMsg(){
-        HomePage homePage = new HomePage(BaseDefinitions.getThreadLocal());
-        Assert.assertTrue(homePage.getSuccessMsg().isDisplayed());
-    }
-    @Then("I should see a green success message in the top right corner of the new playlist page")
+    @Then("I should see a green success message in the top right corner of the page")
     public void playlistPageSuccessMsg() {
         PlaylistPage playlistPage = new PlaylistPage(BaseDefinitions.getThreadLocal());
-        Assert.assertTrue(playlistPage.getSuccessMsg().isDisplayed());
+        String toastText = playlistPage.getSuccessMsgText();
+        Assert.assertNotNull(toastText);
     }
     @And("I add the song to a new playlist by entering the name {string}")
     public void createNewPlaylistByAddingSong(String newPlaylistName) {

@@ -1,7 +1,7 @@
 package pages;
 
-//import io.cucumber.java.en.And;
-//import io.cucumber.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +15,7 @@ public class LoginPage extends BasePage{
     private WebElement passwordField;
     @FindBy(css = "button[type='submit']")
     private WebElement submitBtn;
-    @FindBy(css = "a[type='submit']")
+    @FindBy(css = "a[href='registration']")
     private WebElement registrationLink;
 
     public LoginPage enterEmail(String email){findElement(emailField).sendKeys(email); return this;}

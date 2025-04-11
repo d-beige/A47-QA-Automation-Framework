@@ -1,30 +1,36 @@
 @Ignore
 Feature: Smoke Test Suite and Failing Features
+  Background:
+    Given I am logged in and my user avatar is displayed
 
 # Consists of Smoke Test Scenarios and Scenarios that I need to Troubleshoot
 
 
-  Scenario: Playing Song from the Search Results Page
-    Given I am logged in and my user avatar is displayed
-    When I type into the searchbar the song title "birthday"
+  Scenario: Create a New Playlist From the Home Page
+    When I click the Add Playlist button
+    And I click the New Playlist button
+    And I enter the new playlist name "HomePage Playlist"
+    Then I should see a green success message in the top right corner of the page
+
+  Scenario: Create a New Playlist By Adding a Song to it
+    When I type into the searchbar the song title "dark"
     And I click the View All button
     And I click the song on row 1
     And I click the Add To button
-    And I add the song to the list in row 3
-    And I click the Play button located at the bottom of the screen
-    Then the song playing matches the song selected above
+    And I add the song to a new playlist by entering the name "JumpMan Playlist"
+    Then I should see a green success message in the top right corner of the page
 
+  Scenario: Change Playlist Name From the Home Page using DoubleClick
+    When I double-click the playlist on row 3
+    And I enter the new playlist name "Renamed This Playlist"
+    Then I should see a green success message in the top right corner of the page
 
-  Scenario: Successful Login
-    Given I am on the Login Page
-    When I enter email "daviyontae.floyd@testpro.io"
-    And I enter password "te$t$tudent"
-    And I click the submit button
-    Then I am logged in and my user avatar should be displayed
+  Scenario: Delete Playlist from Playlist Page
+    And I click a playlist in the left tab 3
+    When I click the Delete Playlist button on the Playlist Page
+    Then I should see a green success message in the top right corner of the page
 
-  Scenario: Play a Song from the All Songs Page
-    Given I am logged in and my user avatar is displayed
-    And I click the All Songs button in the left tab
-    And I right-click a song in the list 1
-    Then I click the Playback button
-    When I hover over the Play button at the bottom of the screen, it should now display the Pause symbol
+  Scenario: Delete Playlist from Home Page
+    And I right-click a playlist in the left tab 3
+    When I click the Delete Playlist button on the Home Page
+    Then I should see a green success message in the top right corner of the page
