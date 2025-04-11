@@ -1,13 +1,12 @@
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -19,6 +18,7 @@ import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -121,8 +121,49 @@ public class BaseTest {
                 {"", ""}
         };
     }
-
-
-    public void iEnterEmail(String arg0) {
+    /*LOGIN HELPER FUNCTIONS*/
+    public void openLoginLink(){
+        driver.get(url);
+    }
+    public void enterEmailField(String email){
+        WebElement emailField = driver.findElement(By.cssSelector("[type='email']"));
+        emailField.click();
+        emailField.clear();
+        emailField.sendKeys(email);
+    }
+    public void enterPasswordField(String password){
+        WebElement passwordField = driver.findElement(By.cssSelector("[type='password']"));
+        passwordField.click();
+        passwordField.clear();
+        passwordField.sendKeys(password);
+    }
+    public void clickSubmit(){
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        loginButton.click();
+    }
+    /*USER PROFILE HELPER FUNCTIONS*/
+    public void clickUsername(){
+        WebElement username = driver.findElement(By.cssSelector("span.name"));
+        username.click();
+    }
+    public void currentPassword(String pass){
+        WebElement currPasswordField = driver.findElement(By.cssSelector("#inputProfileCurrentPassword"));
+        currPasswordField.click();
+        currPasswordField.clear();
+        currPasswordField.sendKeys(pass);
+    }
+    public String generateUsername(){
+        String name = UUID.randomUUID().toString().replace("-", "");
+        return name.substring(0, 7);
+    }
+    public void changeUsername(String name){
+        WebElement usernameField = driver.findElement(By.cssSelector("#inputProfileName"));
+        usernameField.click();
+        usernameField.clear();
+        usernameField.sendKeys(name);
+    }
+    public void clickSave(){
+        WebElement saveBtn = driver.findElement(By.cssSelector(".btn-submit"));
+        saveBtn.click();
     }
 }
